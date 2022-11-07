@@ -11,7 +11,7 @@ faceapi.env.monkeyPatch({ Canvas, Image, ImageData })
 const faceDetectionNet = faceapi.nets.ssdMobilenetv1
 
 // SsdMobilenetv1Options
-const minConfidence = 0.7
+const minConfidence = 0.5
 
 // TinyFaceDetectorOptions
 const inputSize = 408  
@@ -69,11 +69,12 @@ module.exports = {
     
         // load the image
         // const img = await canvas.loadImage('./uploads/' + filePath)
-        const img = await image('./uploads/' + filePath);
-    
+        const img = await image(filePath);
+        
         // detect the faces with landmarks
         const results = await faceapi.detectAllFaces(img, faceDetectionOptions);
-    
+        
+        img.dispose();
         return results;
     }
 }
